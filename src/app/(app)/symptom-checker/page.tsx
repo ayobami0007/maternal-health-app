@@ -1,11 +1,12 @@
+
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { Suspense, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { symptoms } from '@/data/symptoms';
 import { searchSymptoms } from '@/lib/symptomMapper';
 
-export default function SymptomCheckerLandingPage() {
+function SymptomCheckerLandingPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const intent = searchParams.get('intent');
@@ -16,7 +17,7 @@ export default function SymptomCheckerLandingPage() {
     intent === 'decide'
       ? "Let's figure out what's going on"
       : intent === 'off'
-      ? "Something feels off"
+      ? 'Something feels off'
       : 'What are you feeling today?';
 
   const subtitle =
@@ -47,16 +48,30 @@ export default function SymptomCheckerLandingPage() {
           className="rounded-full p-2 text-brand-ink/70 hover:bg-black/5 transition-colors"
           aria-label="Go back"
         >
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
 
         <div className="flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
-          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+          <svg
+            className="h-4 w-4"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
             <path
               fillRule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 001.414 1.414l2 2a1 1 0 001.414 0l4-4z"
               clipRule="evenodd"
             />
           </svg>
@@ -77,7 +92,12 @@ export default function SymptomCheckerLandingPage() {
       {/* Free-Text Search Input */}
       <div className="relative">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-brand-ink/40">
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -86,6 +106,7 @@ export default function SymptomCheckerLandingPage() {
             />
           </svg>
         </div>
+
         <input
           type="text"
           value={searchQuery}
@@ -93,6 +114,7 @@ export default function SymptomCheckerLandingPage() {
           placeholder="Type what you're feeling (e.g. throbbing head, back ache)..."
           className="w-full rounded-2xl border border-brand-line/80 bg-white py-3.5 pl-11 pr-10 text-xs sm:text-sm font-medium text-brand-ink placeholder:text-brand-ink/40 shadow-sm transition-all focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600/20"
         />
+
         {searchQuery && (
           <button
             type="button"
@@ -110,6 +132,7 @@ export default function SymptomCheckerLandingPage() {
           <h2 className="text-xs font-bold uppercase tracking-wider text-brand-ink/50">
             {searchQuery ? 'Matching Symptoms' : 'Common Symptoms'}
           </h2>
+
           <span className="text-[11px] font-medium text-brand-ink/40">
             {searchResults.length} available
           </span>
@@ -132,15 +155,27 @@ export default function SymptomCheckerLandingPage() {
                   <span className="font-display text-sm font-bold text-brand-ink block">
                     {item.name}
                   </span>
+
                   {item.description && (
                     <p className="text-xs text-brand-ink/60 line-clamp-2">
                       {item.description}
                     </p>
                   )}
                 </div>
+
                 <div className="mt-0.5 rounded-full bg-brand-paper p-1 text-brand-ink/40 shrink-0">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </div>
               </button>
@@ -151,6 +186,7 @@ export default function SymptomCheckerLandingPage() {
             <p className="text-xs sm:text-sm font-semibold text-brand-ink">
               No matching symptoms found for "{searchQuery}"
             </p>
+
             <button
               type="button"
               onClick={() => setSearchQuery('')}
@@ -164,3 +200,13 @@ export default function SymptomCheckerLandingPage() {
     </div>
   );
 }
+
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <SymptomCheckerLandingPage />
+    </Suspense>
+  );
+}
+
+
