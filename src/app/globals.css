@@ -1,26 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand token system — see README.md for rationale */
+  --color-indigo: #22345e;   /* primary — adire-inspired deep indigo */
+  --color-ink: #211f1c;      /* body text, warmer than pure black */
+  --color-paper: #fbf9f4;    /* background, warm but not stock "AI cream" */
+  --color-clay: #a85c32;     /* accent / CTAs — terracotta-clay, used sparingly */
+  --color-sage: #6b7f5e;     /* secondary accent — calm, reassurance cues */
+  --color-line: #e4dfd4;     /* borders, dividers */
+--color-danger: #a6293d;
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-brand-indigo: var(--color-indigo);
+  --color-brand-ink: var(--color-ink);
+  --color-brand-paper: var(--color-paper);
+  --color-brand-clay: var(--color-clay);
+  --color-brand-sage: var(--color-sage);
+  --color-brand-line: var(--color-line);
+  --font-display: var(--font-sora);
+  --font-sans: var(--font-inter);
+  
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
